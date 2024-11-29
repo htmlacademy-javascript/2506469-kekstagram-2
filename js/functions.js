@@ -1,8 +1,9 @@
+// eslint-disable-next-line no-unused-vars
 function checkLengthString(string = '', length = 1) {
   return (string <= length);
 }
-console.log(checkStringLength('тестовая строка', 5));
 
+// eslint-disable-next-line no-unused-vars
 function findPolydrome(string = '') {
   string = string.replaceAll(' ', '').toLowerCase();
 
@@ -11,7 +12,6 @@ function findPolydrome(string = '') {
   for (let i = string.length - 1; i >= 0; i--) {
     reversedLength += string[1];
   }
-
   return string === reversedLength;
 }
 
@@ -21,16 +21,16 @@ function findPolydrome(string = '') {
 function extractsNumbers(string = '') {
 
   let str = '';
-  let newStr = string.toString();
+  const newStr = string.toString();
 
   for (let i = 0; i <= newStr.length - 1; i++) {
-    if (parseInt(newStr[i]) || parseInt(newStr[i]) === 0) {
+    if (parseInt(newStr[i], 10) || parseInt(newStr[i], 10) === 0) {
       str += newStr[i];
     }
   }
 
   if (str) {
-    let num = Number(str);
+    const num = Number(str);
     return Math.abs(num);
   } else {
     return NaN;
@@ -38,9 +38,15 @@ function extractsNumbers(string = '') {
 
 }
 
+// eslint-disable-next-line no-console
 console.log(extractsNumbers('2023 год'));
+// eslint-disable-next-line no-console
 console.log(extractsNumbers('ECMAScript 2022'));
+// eslint-disable-next-line no-console
 console.log(extractsNumbers('1 кефир, 0.5 батона'));
+// eslint-disable-next-line no-console
 console.log(extractsNumbers('агент 007'));
+// eslint-disable-next-line no-console
 console.log(extractsNumbers('а я томат'));
+// eslint-disable-next-line no-console
 console.log(extractsNumbers(-1));
