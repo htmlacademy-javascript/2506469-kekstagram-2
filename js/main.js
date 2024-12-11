@@ -1,30 +1,30 @@
 
-const IdPhotoRange = {
+const ID_PHOTO_RANGE = {
   MIN: 1,
   MAX: 25
 };
 
-const IdUrlRange = {
+const ID_URL_RANGE = {
   MIN: 1,
   MAX: 25
 };
 
-const LikesRange = {
+const LIKES_RANGE = {
   MIN: 15,
   MAX: 200
 };
 
-const CommentsRange = {
+const COMMENTS_RANGE = {
   MIN: 0,
   MAX: 30
 };
 
-const IdMessagerange = {
+const ID_MESSAGER_RANGE = {
   MIN: 1,
   MAX: 1111
 };
 
-const AvatarRange = [
+const AVATAR_RANGE = [
   'img/avatar-1.svg',
   'img/avatar-2.svg',
   'img/avatar-3.svg',
@@ -33,7 +33,7 @@ const AvatarRange = [
   'img/avatar-6.svg',
 ];
 
-const MessageRange = {
+const MESSAGER_RANGE = {
   MIN: 1,
   MAX: 2
 };
@@ -88,32 +88,22 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-const getPhotoId = () => {
-  let photoId = 1;
-  function increasesPhotoId () {
-    return photoId++;
+const getId = () => {
+  let id = 1;
+  function increasesId () {
+    return id++;
   }
-  return increasesPhotoId;
+  return increasesId;
 }
 
-let funcPhoto = getPhotoId();
+let funcPhoto = getId();
 
-const getCommentId = () => {
-  let commentId = 1;
-  function increasesCommentId () {
-    return commentId++;
-  }
-  return increasesCommentId;
-}
-
-let funcComment = getCommentId();
-
-
+let funcComment = getId();
 
 const createComment = () => (
   {
     id: funcComment(),
-    avatar: AvatarRange[getRandomInt(0, AvatarRange.length -1)],
+    avatar: AVATAR_RANGE[getRandomInt(0, AVATAR_RANGE.length -1)],
     message: MESSAGE[getRandomInt(0, MESSAGE.length -1)],
     name: NAME[getRandomInt(0, NAME.length -1)],
   }
@@ -125,8 +115,8 @@ const createPhoto = () => {
     id: id,
     url: `photos/${id}.jpg`,
     description: DESCRIPTION[getRandomInt(0, DESCRIPTION.length -1)],
-    likes: getRandomInt(LikesRange.MIN, LikesRange.MAX),
-    comment: Array.from({length: getRandomInt(CommentsRange.MIN, CommentsRange.MAX)}, () => createComment()),
+    likes: getRandomInt(LIKES_RANGE.MIN, LIKES_RANGE.MAX),
+    comment: Array.from({length: getRandomInt(COMMENTS_RANGE.MIN, COMMENTS_RANGE.MAX)}, () => createComment()),
   }
 }
 
