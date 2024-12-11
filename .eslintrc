@@ -1,16 +1,20 @@
-root: true
-
-parserOptions:
-  ecmaVersion: 2022
-  sourceType: "module"
-
-env:
-  es2022: true
-  browser: true
-
-globals:
-  noUiSlider: readonly
-  Pristine: readonly
-
-extends:
-  "htmlacademy/vanilla"
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-console": "off",
+    "eqeqeq": "error",
+    "curly": "error"
+  }
+}

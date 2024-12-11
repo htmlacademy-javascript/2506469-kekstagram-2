@@ -113,9 +113,9 @@ let funcComment = getCommentId();
 const createComment = () => (
   {
     id: funcComment(),
-    avatar: AvatarRange[getRandomInt(0, AvatarRange.lenght -1)],
-    message: MESSAGE[getRandomInt(0, MESSAGE.lenght -1)],
-    name: NAME[getRandomInt(0, NAME.lenght -1)],
+    avatar: AvatarRange[getRandomInt(0, AvatarRange.length -1)],
+    message: MESSAGE[getRandomInt(0, MESSAGE.length -1)],
+    name: NAME[getRandomInt(0, NAME.length -1)],
   }
 );
 
@@ -124,16 +124,12 @@ const createPhoto = () => {
   return {
     id: id,
     url: `photos/${id}.jpg`,
-    description: DESCRIPTION[getRandomInt(0, DESCRIPTION.lenght -1)],
+    description: DESCRIPTION[getRandomInt(0, DESCRIPTION.length -1)],
     likes: getRandomInt(LikesRange.MIN, LikesRange.MAX),
-    comment: Array.from({lenght: getRandomInt(CommentsRange.MIN, CommentsRange.MAX), createComment}),
+    comment: Array.from({length: getRandomInt(CommentsRange.MIN, CommentsRange.MAX)}, () => createComment()),
   }
 }
 
-let array = [];
-
-for (let i = 1; i <= 25; i++) {
-  array.push(createPhoto());
-}
+const array = Array.from({length: 25}, () => createPhoto())
 
 console.log(array);
