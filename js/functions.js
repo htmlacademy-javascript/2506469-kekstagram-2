@@ -3,8 +3,6 @@ function checkLengthString(string = '', length = 1) {
   return (string <= length);
 }
 
-console.log(checkLengthString('тестовая строка', 5));
-
 
 function findPolydrome(string = '') {
   string = string.replaceAll(' ', '').toLowerCase();
@@ -16,15 +14,6 @@ function findPolydrome(string = '') {
   }
   return string === reversedLength;
 }
-
-console.log('\n--- Тесты для findPolydrome ---');
-console.log(`Строка является палиндромом: ${findPolydrome('топот') === true}`);
-console.log(`Строка является палиндромом с разным регистром: ${findPolydrome('ДовОд') === true}`);
-console.log(`Строка не является палиндромом: ${findPolydrome('Кекс') === false}`);
-console.log(`Строка является палиндромом: ${findPolydrome('Лёша на полке клопа нашёл ') === true}`);
-
-// Функция принимает строку,
-// извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа. Если в строке нет ни одной цифры, функция должна вернуть NaN:
 
 function extractsNumbers(string = '') {
 
@@ -44,10 +33,3 @@ function extractsNumbers(string = '') {
   }
 
 }
-
-console.log(extractsNumbers('2023 год'));
-console.log(extractsNumbers('ECMAScript 2022'));
-console.log(extractsNumbers('1 кефир, 0.5 батона'));
-console.log(extractsNumbers('агент 007'));
-console.log(extractsNumbers('а я томат'));
-console.log(extractsNumbers(-1));

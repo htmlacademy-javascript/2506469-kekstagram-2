@@ -1,25 +1,25 @@
 
-const ID_PHOTO_RANGE = {
+const IdPhotoRange = {
   MIN: 1,
   MAX: 25
 };
 
-const ID_URL_RANGE = {
+const IdUrlRange = {
   MIN: 1,
   MAX: 25
 };
 
-const LIKES_RANGE = {
+const LikesRange = {
   MIN: 15,
   MAX: 200
 };
 
-const COMMENTS_RANGE = {
+const CommentsRange = {
   MIN: 0,
   MAX: 30
 };
 
-const ID_MESSAGER_RANGE = {
+const IdMessagerRange = {
   MIN: 1,
   MAX: 1111
 };
@@ -33,7 +33,7 @@ const AVATAR_RANGE = [
   'img/avatar-6.svg',
 ];
 
-const MESSAGER_RANGE = {
+const MessagerRange = {
   MIN: 1,
   MAX: 2
 };
@@ -96,13 +96,13 @@ const getId = () => {
   return increasesId;
 }
 
-let funcPhoto = getId();
+let generatePhoto = getId();
 
-let funcComment = getId();
+let generateComment = getId();
 
 const createComment = () => (
   {
-    id: funcComment(),
+    id: generateComment(),
     avatar: AVATAR_RANGE[getRandomInt(0, AVATAR_RANGE.length -1)],
     message: MESSAGE[getRandomInt(0, MESSAGE.length -1)],
     name: NAME[getRandomInt(0, NAME.length -1)],
@@ -110,13 +110,13 @@ const createComment = () => (
 );
 
 const createPhoto = () => {
-  let id = funcPhoto();
+  let id = generatePhoto();
   return {
     id: id,
     url: `photos/${id}.jpg`,
     description: DESCRIPTION[getRandomInt(0, DESCRIPTION.length -1)],
-    likes: getRandomInt(LIKES_RANGE.MIN, LIKES_RANGE.MAX),
-    comment: Array.from({length: getRandomInt(COMMENTS_RANGE.MIN, COMMENTS_RANGE.MAX)}, () => createComment()),
+    likes: getRandomInt(LikesRange.MIN, LikesRange.MAX),
+    comment: Array.from({length: getRandomInt(CommentsRange.MIN, CommentsRange.MAX)}, () => createComment()),
   }
 }
 
