@@ -122,4 +122,3 @@ const createPhoto = () => {
 
 const array = Array.from({length: 25}, () => createPhoto())
 
-console.log(array);
