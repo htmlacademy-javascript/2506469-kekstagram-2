@@ -12,5 +12,5 @@ const getId = () => {
   return increasesId;
 }
 
-export {getRandomInt};
-export {getId};
+export {getRandomInt, getId};
+
