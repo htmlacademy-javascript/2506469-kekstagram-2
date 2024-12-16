@@ -1,16 +1,6 @@
 import {getRandomInt} from './util.js';
 import {getId} from './util.js';
 
-const IdPhotoRange = {
-  MIN: 1,
-  MAX: 25
-};
-
-const IdUrlRange = {
-  MIN: 1,
-  MAX: 25
-};
-
 const LikesRange = {
   MIN: 15,
   MAX: 200
@@ -21,11 +11,6 @@ const CommentsRange = {
   MAX: 30
 };
 
-const IdMessagerRange = {
-  MIN: 1,
-  MAX: 1111
-};
-
 const AVATAR_RANGE = [
   'img/avatar-1.svg',
   'img/avatar-2.svg',
@@ -34,11 +19,6 @@ const AVATAR_RANGE = [
   'img/avatar-5.svg',
   'img/avatar-6.svg',
 ];
-
-const MessagerRange = {
-  MIN: 1,
-  MAX: 2
-};
 
 const DESCRIPTION = [
   'Закат на берегу моря',
