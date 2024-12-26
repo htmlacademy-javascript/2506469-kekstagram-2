@@ -1,5 +1,4 @@
-import './util.js';
-import './data.js';
-import {array} from './data.js';
+import {createPosts} from './data.js';
+import {createRenderPictures} from './renderPicture.js';
 
-console.log(array);
+createRenderPictures(createPosts());

@@ -1,5 +1,5 @@
-import {getRandomInt} from './util.js';
-import {getId} from './util.js';
+import { getRandomInt } from './util.js';
+import { getId } from './util.js';
 
 const LikesRange = {
   MIN: 15,
@@ -71,9 +71,9 @@ let generateComment = getId();
 const createComment = () => (
   {
     id: generateComment(),
-    avatar: AVATAR_RANGE[getRandomInt(0, AVATAR_RANGE.length -1)],
-    message: MESSAGE[getRandomInt(0, MESSAGE.length -1)],
-    name: NAME[getRandomInt(0, NAME.length -1)],
+    avatar: AVATAR_RANGE[getRandomInt(0, AVATAR_RANGE.length - 1)],
+    message: MESSAGE[getRandomInt(0, MESSAGE.length - 1)],
+    name: NAME[getRandomInt(0, NAME.length - 1)],
   }
 );
 
@@ -82,12 +82,11 @@ const createPhoto = () => {
   return {
     id: id,
     url: `photos/${id}.jpg`,
-    description: DESCRIPTION[getRandomInt(0, DESCRIPTION.length -1)],
+    description: DESCRIPTION[getRandomInt(0, DESCRIPTION.length - 1)],
     likes: getRandomInt(LikesRange.MIN, LikesRange.MAX),
-    comment: Array.from({length: getRandomInt(CommentsRange.MIN, CommentsRange.MAX)}, () => createComment()),
+    comment: Array.from({ length: getRandomInt(CommentsRange.MIN, CommentsRange.MAX) }, () => createComment()),
   }
 }
 
-const array = Array.from({length: 25}, () => createPhoto())
-
-export {array};
+export const createPosts = () =>
+  Array.from({ length: 25 }, createPhoto);
