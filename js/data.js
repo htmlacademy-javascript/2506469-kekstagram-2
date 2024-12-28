@@ -88,5 +88,7 @@ const createPhoto = () => {
   }
 }
 
-export const createPosts = () =>
-  Array.from({ length: 25 }, createPhoto);
+const createPosts = () => Array.from({ length: 25 }, createPhoto);
+
+const posts = createPosts();
+export {posts};
