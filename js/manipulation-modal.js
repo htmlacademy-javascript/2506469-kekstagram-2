@@ -15,14 +15,12 @@ function closeModal() {
   modalElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscapeDown);
-  console.log(1);
 }
 
 const openModal = (photos) => {
   thumbnailsContainerElement.addEventListener('click', (evt) => {
     if (evt.target.matches('.picture__img')) {
       let photo = photos.find((photo) => {
-        console.log(evt.target.dataset.photoId);
         return photo.id === Number(evt.target.dataset.photoId)
       })
       evt.preventDefault();

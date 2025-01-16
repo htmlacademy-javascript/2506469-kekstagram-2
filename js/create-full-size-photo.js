@@ -6,7 +6,7 @@ const socialCommentsElement = bigPictureElement.querySelector('.social__comments
 const socialCaptionElement = bigPictureElement.querySelector('.social__caption');
 const commentsLoaderElement = bigPictureElement.querySelector('.social__comments-loader');
 const socialCommentShownElement = bigPictureElement.querySelector('.social__comment-shown-count');
-console.log(socialCommentShownElement);
+
 const  renderComments = (comment) => {
   socialCommentsElement.innerHTML = '';
   comment.forEach(element => {
@@ -23,7 +23,7 @@ const  renderComments = (comment) => {
 }
 
 const createFullSizePhoto = ({ url, description, likes, comment }) => {
-  image.src = url;
+  image.setAttribute('src', url);
   likesCountElement.textContent = likes;
   socialCaptionElement.textContent = description;
   socialCommentTotalElement.textContent = comment.length;
