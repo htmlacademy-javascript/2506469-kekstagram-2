@@ -7,8 +7,8 @@ const LikesRange = {
 };
 
 const CommentsRange = {
-  MIN: 0,
-  MAX: 30
+  MIN: 5,
+  MAX: 50
 };
 
 const AVATAR_RANGE = [
