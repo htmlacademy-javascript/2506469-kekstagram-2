@@ -3,6 +3,10 @@ const socialCommentsElement = bigPictureElement.querySelector('.social__comments
 const commentsLoaderElement = bigPictureElement.querySelector('.social__comments-loader');
 const socialCommentTotalElement = bigPictureElement.querySelector('.social__comment-total-count');
 const socialCommentShownElement = bigPictureElement.querySelector('.social__comment-shown-count');
+const socialComments = document.querySelector('.social__comments');
+  const commentTemplate = document.querySelector('.social__comment');
+  const fragment = document.createDocumentFragment();
+
 let countComment = 1;
 let minComments = 5;
 let arrayComment = [];
@@ -21,18 +25,23 @@ commentsLoaderElement.addEventListener('click', () => {
   displayComments(arrayComment);
 });
 
+const renderComments = (avatar, name, message) => {
+  const socialCommentsClone = commentTemplate.cloneNode(true);
+  console.log(socialCommentsClone);
+  const image = socialCommentsClone.querySelector('.social__picture');
+  const paragraphComment = socialCommentsClone.querySelector('.social__text');
+  image.setAttribute('src', avatar);
+  image.setAttribute('alt', name);
+  paragraphComment.textContent = message;
+  return socialCommentsClone;
+}
+
 const displayComments = (comments) => {
   socialCommentsElement.innerHTML = '';
   comments.forEach((element, index) => {
     if (index < minComments*countComment) {
-      socialCommentsElement.innerHTML += `
-      <li class="social__comment">
-      <img class="social__picture"
-        src="${element.avatar}"
-        alt="${element.name}"
-        width="35" height="35">
-     <p class="social__text">${element.message}</p>
-     </li>`
+      fragment.appendChild(renderComments(element.avatar, element.name, element.message));
+      socialComments.appendChild(fragment);
     }
   })
   changeSocialComment(minComments*countComment, comments);
