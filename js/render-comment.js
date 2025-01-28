@@ -11,29 +11,19 @@ let countComment = 1;
 let minComments = 5;
 let arrayComment = [];
 
-const changeSocialComment = (count, comments) => {
-  socialCommentTotalElement.textContent = comments.length;
-  socialCommentShownElement.textContent = count > comments.length? comments.length: count;
-}
-
-const returnComments = ({comment}) => {
-  arrayComment = [...comment];
-}
-
-commentsLoaderElement.addEventListener('click', () => {
-  countComment += 1;
-  displayComments(arrayComment);
-});
-
 const renderComments = (avatar, name, message) => {
   const socialCommentsClone = commentTemplate.cloneNode(true);
-  console.log(socialCommentsClone);
   const image = socialCommentsClone.querySelector('.social__picture');
   const paragraphComment = socialCommentsClone.querySelector('.social__text');
   image.setAttribute('src', avatar);
   image.setAttribute('alt', name);
   paragraphComment.textContent = message;
   return socialCommentsClone;
+}
+
+const changeSocialComment = (count, comments) => {
+  socialCommentTotalElement.textContent = comments.length;
+  socialCommentShownElement.textContent = count > comments.length? comments.length: count;
 }
 
 const displayComments = (comments) => {
@@ -46,6 +36,15 @@ const displayComments = (comments) => {
   })
   changeSocialComment(minComments*countComment, comments);
 }
+
+const returnComments = ({comment}) => {
+  arrayComment = [...comment];
+}
+
+commentsLoaderElement.addEventListener('click', () => {
+  countComment += 1;
+  displayComments(arrayComment);
+});
 
 const clearComment = () => {
   countComment = 1;
