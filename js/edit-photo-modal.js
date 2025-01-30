@@ -1,4 +1,6 @@
 import { validatePhotoEditForm, pristine } from "./validation-option";
+import { resetPhotoSettings, editPhotoEffect, editPhotoScale  } from "./photo-setting";
+import { loadUserPhoto } from "./add-user-photo";
 
 const formElement = document.querySelector('.img-upload__form');
 const body = document.querySelector('body');
@@ -8,7 +10,9 @@ const closeOverlay = document.querySelector('#upload-cancel');
 const previewElement = document.querySelector('.img-upload__preview');
 const previewImage = previewElement.querySelector('img');
 
-const munipulationOverlay = () => {
+
+const editPhotoModal = () => {
+  loadUserPhoto();
   inputElement.addEventListener('change', (evt) => {
     const file = evt.target.files[0];
     if (file) {
@@ -23,14 +27,17 @@ const munipulationOverlay = () => {
     body.classList.add('modal-open');
     overlayElement.classList.remove('hidden');
     validatePhotoEditForm();
+    editPhotoEffect();
+    editPhotoScale();
     pristine.reset();
   });
 }
 
-const closeMunipilationOverlay = () => {
+const closePhotoModal = () => {
   closeOverlay.addEventListener('click', () => {
     body.classList.remove('modal-open');
     overlayElement.classList.add('hidden');
+    resetPhotoSettings('');
     pristine.reset();
     formElement.reset();
   });
@@ -38,6 +45,7 @@ const closeMunipilationOverlay = () => {
     if (evt.key === 'Escape') {
       body.classList.remove('modal-open');
       overlayElement.classList.add('hidden');
+      resetPhotoSettings('');
       pristine.reset();
       formElement.reset();
     }
@@ -56,4 +64,4 @@ const postForm = () => {
   });
 }
 
-export { munipulationOverlay, closeMunipilationOverlay, postForm};
+export { editPhotoModal, closePhotoModal, postForm};
