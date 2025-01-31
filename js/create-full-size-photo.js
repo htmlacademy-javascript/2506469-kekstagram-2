@@ -1,21 +1,23 @@
-import { displayComments } from "./render-comment";
+import { returnComments } from "./render-comment";
 
-const bigPictureElement = document.querySelector('.big-picture__preview');
-const image = bigPictureElement.querySelector('img');
-const likesCountElement = bigPictureElement.querySelector('.likes-count');
-const socialCommentTotalElement = bigPictureElement.querySelector('.social__comment-total-count');
-const socialCommentsElement = bigPictureElement.querySelector('.social__comments');
-const socialCaptionElement = bigPictureElement.querySelector('.social__caption');
-const commentsLoaderElement = bigPictureElement.querySelector('.social__comments-loader');
-const socialCommentShownElement = bigPictureElement.querySelector('.social__comment-shown-count');
+const fullSizePhotoElement = document.querySelector('.big-picture__preview');
+const fullSizePhotoImageElement = fullSizePhotoElement.querySelector('img');
+const likesCountElement = fullSizePhotoElement.querySelector('.likes-count');
+const captionElement = fullSizePhotoElement.querySelector('.social__caption');
+const commentsQuantityElement = fullSizePhotoElement.querySelector('.social__comment-total-count');
+const commentLoaderElement = fullSizePhotoElement.querySelector('.social__comments-loader');
+const commentsListElement = fullSizePhotoElement.querySelector('.social__comments');
 
-const createFullSizePhoto = ({ url, description, likes, comment }) => {
-  image.setAttribute('src', url);
+// Создание полноразмерного фото
+const createFullSizePhoto = ({url, description, likes, comments}) => {
+  fullSizePhotoImageElement.setAttribute('src', url);
   likesCountElement.textContent = likes;
-  socialCaptionElement.textContent = description;
-  socialCommentTotalElement.textContent = comment.length;
-  socialCommentShownElement.textContent = comment.length;
-  displayComments(comment);
+  captionElement.textContent = description;
+  commentsQuantityElement.textContent = comments.length;
+  commentsListElement.innerHTML = '';
+
+  commentLoaderElement.classList.remove('hidden');
+  returnComments(comments);
 };
 
 export { createFullSizePhoto };
