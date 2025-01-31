@@ -1,4 +1,4 @@
-import { updateFilter, updateScale } from "./add-user-photo";
+import { updateFilter, updateScale } from './add-user-photo.js';
 
 const image = document.querySelector('.img-upload__preview img');
 const slider = document.querySelector('.effect-level');
