@@ -1,67 +1,73 @@
 import { validatePhotoEditForm, pristine } from "./validation-option";
 import { resetPhotoSettings, editPhotoEffect, editPhotoScale  } from "./photo-setting";
 import { loadUserPhoto } from "./add-user-photo";
+import { sendData } from "./api";
+import { showSendErrorMessage, showSendSuccessMessage } from "./util";
 
 const formElement = document.querySelector('.img-upload__form');
-const body = document.querySelector('body');
-const overlayElement = document.querySelector('.img-upload__overlay');
-const inputElement = document.querySelector('#upload-file');
-const closeOverlay = document.querySelector('#upload-cancel');
-const previewElement = document.querySelector('.img-upload__preview');
-const previewImage = previewElement.querySelector('img');
+const photoUploadInputElement = formElement.querySelector('.img-upload__input');
+const modalElement = formElement.querySelector('.img-upload__overlay');
+const closeElement = formElement.querySelector('.img-upload__cancel');
+const submitButtonElement = formElement.querySelector('.img-upload__submit');
 
 
+function onEscapeDown(evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    onModalClose();
+  }
+}
+
+// Закрытие модального окна
+function onModalClose() {
+  modalElement.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onEscapeDown);
+  formElement.reset();
+  resetPhotoSettings('');
+  pristine.reset();
+}
+
+// Открытие модального окна редактирования фотографии
 const editPhotoModal = () => {
   loadUserPhoto();
-  inputElement.addEventListener('change', (evt) => {
-    const file = evt.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function (evt) {
-        previewImage.src = evt.target.result;
-      }
-    } else {
-      previewImage.src = '#';
-    }
-    body.classList.add('modal-open');
-    overlayElement.classList.remove('hidden');
-    validatePhotoEditForm();
-    editPhotoEffect();
-    editPhotoScale();
-    pristine.reset();
-  });
-}
 
-const closePhotoModal = () => {
-  closeOverlay.addEventListener('click', () => {
-    body.classList.remove('modal-open');
-    overlayElement.classList.add('hidden');
-    resetPhotoSettings('');
-    pristine.reset();
-    formElement.reset();
+  photoUploadInputElement.addEventListener('change', () => {
+    modalElement.classList.remove('hidden');
+    document.body.classList.add('modal-open');
   });
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      body.classList.remove('modal-open');
-      overlayElement.classList.add('hidden');
-      resetPhotoSettings('');
-      pristine.reset();
-      formElement.reset();
-    }
-  });
-}
 
-const postForm = () => {
-  formElement.addEventListener('submit', (evt) => {
-    const valid = pristine.validate();
-    if (valid) {
-      alert('Форма валидна');
-    } else {
-      alert('Не валидна');
-      evt.preventDefault();
+
+  document.addEventListener('keydown', onEscapeDown);
+  closeElement.addEventListener('click', onModalClose);
+  validatePhotoEditForm();
+  editPhotoScale();
+  editPhotoEffect();
+};
+
+// Настройка отправки формы
+const configureFormSubmit = () => {
+  formElement.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+
+    if (pristine.validate()) {
+      const formData = new FormData(evt.target);
+      submitButtonElement.setAttribute('disabled', 'true');
+
+      sendData(formData)
+        .then(() => {
+          onModalClose();
+          showSendSuccessMessage();
+        })
+        .catch(() => {
+          showSendErrorMessage();
+        })
+        .finally(() => {
+          submitButtonElement.removeAttribute('disabled');
+        });
     }
   });
-}
+};
 
-export { editPhotoModal, closePhotoModal, postForm};
+
+export { editPhotoModal, configureFormSubmit, onEscapeDown};

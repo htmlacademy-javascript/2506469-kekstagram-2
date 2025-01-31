@@ -20,6 +20,7 @@ const getHashtagErrorMessage = (value) => {
   return '';
 };
 
+// eslint-disable-next-line no-undef
 const pristine = new Pristine(formElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
