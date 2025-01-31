@@ -6,6 +6,19 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
+const getRandomUniqueNumbers = (min, max, count) => {
+  const numbers = [];
+
+  while (numbers.length < count) {
+    const randomNumber = getRandomInt(min, max);
+    if (!numbers.includes(randomNumber)) {
+      numbers.push(randomNumber);
+    }
+  }
+
+  return numbers;
+};
+
 const getId = () => {
   let id = 1;
   function increasesId () {
@@ -63,4 +76,14 @@ const showSendErrorMessage = () => {
   showMessage('#error', '.error', '.error__button');
 };
 
-export {getRandomInt, getId, showSendErrorMessage, showSendSuccessMessage, showLoadErrorMessage};
+// Предотвращение лишних вызовов функций
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export {getRandomInt, getId, showSendErrorMessage, showSendSuccessMessage, showLoadErrorMessage, debounce, getRandomUniqueNumbers};

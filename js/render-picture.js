@@ -1,26 +1,24 @@
-const pictureConteiner = document.querySelector('.pictures');
-  const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-  const fragment = document.createDocumentFragment();
+const containerElement = document.querySelector('.pictures');
+const templateElement = document.querySelector('#picture').content;
 
-const renderPicture = function ({id, url, description, likes, comment}) {
-  const pictureElement = pictureTemplate.cloneNode(true);
-  const image = pictureElement.querySelector('.picture__img');
-  const commentElement = pictureElement.querySelector('.picture__comments');
-  const likesElement = pictureElement.querySelector('.picture__likes');
-  image.setAttribute('data-photo-id', id);
-  image.setAttribute('src', url);
-  image.setAttribute('alt', description);
-  commentElement.textContent = comment.length;
-  likesElement.textContent = likes;
+// Отрисовка миниатюр
+const createRenderPictures = (photos) => {
+  const thumbnailsFragment = document.createDocumentFragment();
+  photos.forEach(({id, url, description, likes, comments}) => {
+    const photoElement = templateElement.cloneNode(true);
+    const photoImageElement = photoElement.querySelector('.picture__img');
 
-  return pictureElement;
-}
+    photoImageElement.dataset.photoId = id;
+    photoImageElement.setAttribute('src', url);
+    photoImageElement.setAttribute('alt', description);
+    photoElement.querySelector('.picture__likes').textContent = likes;
+    photoElement.querySelector('.picture__comments').textContent = comments.length;
 
-const createRenderPictures = (arrayPhoto) => {
-  arrayPhoto.forEach(element => {
-    fragment.appendChild(renderPicture(element));
+    thumbnailsFragment.appendChild(photoElement);
   });
-  pictureConteiner.appendChild(fragment);
+
+  containerElement.appendChild(thumbnailsFragment);
 };
+
 
 export {createRenderPictures};

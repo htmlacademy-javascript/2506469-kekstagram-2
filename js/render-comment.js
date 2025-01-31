@@ -1,54 +1,68 @@
-const bigPictureElement = document.querySelector('.big-picture__preview');
-const socialCommentsElement = bigPictureElement.querySelector('.social__comments');
-const commentsLoaderElement = bigPictureElement.querySelector('.social__comments-loader');
-const socialCommentTotalElement = bigPictureElement.querySelector('.social__comment-total-count');
-const socialCommentShownElement = bigPictureElement.querySelector('.social__comment-shown-count');
-const socialComments = document.querySelector('.social__comments');
-  const commentTemplate = document.querySelector('.social__comment');
-  const fragment = document.createDocumentFragment();
+const START_QUANTITY_COMMENTS = 5;
+const LOAD_QUANTITY = 5;
 
-let countComment = 1;
-let minComments = 5;
-let arrayComment = [];
+const fullSizePhotoElement = document.querySelector('.big-picture__preview');
+const commentsListElement = fullSizePhotoElement.querySelector('.social__comments');
+const commentLoaderElement = fullSizePhotoElement.querySelector('.social__comments-loader');
+const commentItemElement = commentsListElement.querySelector('.social__comment');
+const commentsShownElement = fullSizePhotoElement.querySelector('.social__comment-shown-count');
 
-const renderComments = (avatar, name, message) => {
-  const socialCommentsClone = commentTemplate.cloneNode(true);
-  const image = socialCommentsClone.querySelector('.social__picture');
-  const paragraphComment = socialCommentsClone.querySelector('.social__text');
-  image.setAttribute('src', avatar);
-  image.setAttribute('alt', name);
-  paragraphComment.textContent = message;
-  return socialCommentsClone;
-}
+let showedComments = 0;
+let comments = [];
 
-const changeSocialComment = (count, comments) => {
-  socialCommentTotalElement.textContent = comments.length;
-  socialCommentShownElement.textContent = count > comments.length? comments.length: count;
-}
+// Создание одного комментария
+const renderComment = ({ avatar, name, message }) => {
+  const newCommentElement = commentItemElement.cloneNode(true);
+  const commentAuthorElement = newCommentElement.querySelector('.social__picture');
+  const commentTextElement = newCommentElement.querySelector('.social__text');
 
-const displayComments = (comments) => {
-  socialCommentsElement.innerHTML = '';
-  comments.forEach((element, index) => {
-    if (index < minComments*countComment) {
-      fragment.appendChild(renderComments(element.avatar, element.name, element.message));
-      socialComments.appendChild(fragment);
-    }
-  })
-  changeSocialComment(minComments*countComment, comments);
-}
+  commentAuthorElement.setAttribute('src', avatar);
+  commentAuthorElement.setAttribute('alt', name);
+  commentTextElement.textContent = message;
 
-const returnComments = ({comment}) => {
-  arrayComment = [...comment];
-}
+  return newCommentElement;
+};
 
-commentsLoaderElement.addEventListener('click', () => {
-  countComment += 1;
-  displayComments(arrayComment);
-});
+// Загрузка дополнительный комментариев
+const onCommentsUploadClick = () => {
+  const remainingComments = comments.length - showedComments;
+  const commentsToLoad = Math.min(LOAD_QUANTITY, remainingComments);
 
+  for (let i = showedComments; i < showedComments + commentsToLoad; i++) {
+    commentsListElement.appendChild(renderComment(comments[i]));
+  }
+
+  showedComments += commentsToLoad;
+  commentsShownElement.textContent = showedComments;
+
+  if (showedComments >= comments.length) {
+    commentLoaderElement.classList.add('hidden');
+  }
+};
+
+// Отображение начальных комментариев
+const returnComments = (newComments) => {
+  comments = newComments;
+  showedComments = Math.min(START_QUANTITY_COMMENTS, comments.length);
+
+  for (let i = 0; i < showedComments; i++) {
+    commentsListElement.appendChild(renderComment(comments[i]));
+  }
+
+  commentsShownElement.textContent = showedComments;
+  commentLoaderElement.classList.add('hidden');
+
+  if (showedComments < comments.length) {
+    commentLoaderElement.classList.remove('hidden');
+    commentLoaderElement.addEventListener('click', onCommentsUploadClick);
+  }
+};
+
+
+// Очистка списка комментариев
 const clearComment = () => {
-  countComment = 1;
-  arrayComment = [];
-}
+  commentsListElement.innerHTML = '';
+  commentLoaderElement.removeEventListener('click', onCommentsUploadClick);
+};
 
-export {displayComments, returnComments, clearComment};
+export { returnComments, clearComment};
