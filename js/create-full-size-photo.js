@@ -1,4 +1,4 @@
-import { returnComments } from "./render-comment";
+import { returnComments } from "./render-comment.js";
 
 const fullSizePhotoElement = document.querySelector('.big-picture__preview');
 const fullSizePhotoImageElement = fullSizePhotoElement.querySelector('img');

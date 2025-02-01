@@ -1,5 +1,5 @@
 import { createFullSizePhoto } from "./create-full-size-photo";
-import { returnComments, clearComment } from "./render-comment";
+import { clearComment } from "./render-comment";
 
 const modalElement = document.querySelector('.big-picture');
 const closeElement = modalElement.querySelector('.big-picture__cancel');
@@ -22,13 +22,12 @@ function closeModal() {
 const openModal = (photos) => {
   thumbnailsContainerElement.addEventListener('click', (evt) => {
     if (evt.target.matches('.picture__img')) {
-      let photo = photos.find((photo) => {
+      const photo = photos.find((photo) => {
         return photo.id === Number(evt.target.dataset.photoId)
       })
       evt.preventDefault();
       modalElement.classList.remove('hidden');
       document.body.classList.add('modal-open');
-      returnComments(photo);
       createFullSizePhoto(photo);
      }
 
