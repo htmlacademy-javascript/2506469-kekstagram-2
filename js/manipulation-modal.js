@@ -1,5 +1,5 @@
-import { createFullSizePhoto } from "./create-full-size-photo";
-import { clearComment } from "./render-comment";
+import { createFullSizePhoto } from "./create-full-size-photo.js";
+import { clearComment } from "./render-comment.js";
 
 const modalElement = document.querySelector('.big-picture');
 const closeElement = modalElement.querySelector('.big-picture__cancel');

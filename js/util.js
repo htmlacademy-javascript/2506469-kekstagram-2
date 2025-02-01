@@ -1,4 +1,4 @@
-import { onEscapeDown } from "./edit-photo-modal";
+import { onEscapeDown } from "./edit-photo-modal.js";
 
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);
