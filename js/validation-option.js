@@ -1,9 +1,11 @@
 const formElement = document.querySelector('.img-upload__form');
-const hashtagElement = formElement.querySelector('.text__hashtags');
-const descriptionElement = formElement.querySelector('.text__description');
+const hashtagInputElement = formElement.querySelector('.text__hashtags');
+const descriptionInputElement = formElement.querySelector('.text__description');
 
+// Получение ошибок для хэштегов
 const getHashtagErrorMessage = (value) => {
   const hashtags = value.trim().toLowerCase().split(/\s+/);
+
   if (hashtags.length > 5) {
     return 'Можно указать не более 5 хэштегов';
   }
@@ -20,14 +22,15 @@ const getHashtagErrorMessage = (value) => {
   return '';
 };
 
-
+// Создание экземпляра Pristine для формы
 // eslint-disable-next-line no-undef
 const pristine = new Pristine(formElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__field-wrapper--error'
+  errorClass: 'img-upload__field-wrapper--error',
 });
 
+// Валидация хэштегов
 const validateHashtags = (value) => { // хэштеги необязательны
   if (!value.trim()) {
     return true;
@@ -35,14 +38,14 @@ const validateHashtags = (value) => { // хэштеги необязательн
 
   const hashtags = value.trim().toLowerCase().split(/\s+/); // регистр не учитывается, разделяется пробелами
   const uniqueHashtags = [];
-  const hashtagPattern = /^#[a-zа-яё0-9]{1,19}$/; // начинается с #, строка состоит из букв и чисел, не может состоять только из решетки, длина 20 символов
+  const HASHTAG_PATTERN = /^#[a-zа-яё0-9]{1,19}$/; // начинается с #, строка состоит из букв и чисел, не может состоять только из решетки, длина 20 символов
 
   if (hashtags.length > 5) {
     return false;
   }
 
   for (const hashtag of hashtags) {
-    if ((hashtag === '#') || (!hashtagPattern.test(hashtag)) || (uniqueHashtags.includes(hashtag))) {
+    if ((hashtag === '#') || (!HASHTAG_PATTERN.test(hashtag)) || (uniqueHashtags.includes(hashtag))) {
       return false;
     }
 
@@ -52,21 +55,23 @@ const validateHashtags = (value) => { // хэштеги необязательн
   return true;
 };
 
-const preventEscClose = (evt) => {
-  if (evt.key === 'Escape' && (hashtagElement === document.activeElement || descriptionElement === document.activeElement)) {
+// Валидация комментария
+const validateDescription = (value) => value.length <= 140;
+
+// Отмена закрытия формы при фокусе в поле ввода
+const onEscPreventClose = (evt) => {
+  if (evt.key === 'Escape' && (hashtagInputElement === document.activeElement || descriptionInputElement === document.activeElement)) {
     evt.stopPropagation();
   }
 };
 
-const validateDescription = (value) => value.length <= 140;
-
+// Валидация формы
 const validatePhotoEditForm = () => {
-  pristine.addValidator(hashtagElement, validateHashtags, getHashtagErrorMessage);
-  pristine.addValidator(descriptionElement, validateDescription, 'Комментарий не должен превышать 140 символов');
+  pristine.addValidator(hashtagInputElement, validateHashtags, getHashtagErrorMessage);
+  pristine.addValidator(descriptionInputElement, validateDescription, 'Комментарий не должен превышать 140 символов');
 
-  hashtagElement.addEventListener('keydown', preventEscClose);
-  descriptionElement.addEventListener('keydown', preventEscClose);
+  hashtagInputElement.addEventListener('keydown', onEscPreventClose);
+  descriptionInputElement.addEventListener('keydown', onEscPreventClose);
 };
-
 
 export { validatePhotoEditForm, pristine };
