@@ -1,8 +1,8 @@
-import { validatePhotoEditForm, pristine } from "./validation-option.js";
-import { resetPhotoSettings, editPhotoEffect, editPhotoScale  } from "./photo-setting.js";
-import { loadUserPhoto } from "./add-user-photo.js";
-import { sendData } from "./api.js";
-import { showSendErrorMessage, showSendSuccessMessage } from "./util.js";
+import { validatePhotoEditForm, pristine } from './validation-option.js';
+import { resetPhotoSettings, editPhotoEffect, editPhotoScale } from './photo-setting.js';
+import { loadUserPhoto } from './add-user-photo.js';
+import { sendData } from './api.js';
+import { showSendErrorMessage, showSendSuccessMessage } from './util.js';
 
 
 const formElement = document.querySelector('.img-upload__form');

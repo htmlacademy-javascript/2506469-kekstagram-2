@@ -56,7 +56,7 @@ const preventEscClose = (evt) => {
   if (evt.key === 'Escape' && (hashtagElement === document.activeElement || descriptionElement === document.activeElement)) {
     evt.stopPropagation();
   }
-}
+};
 
 const validateDescription = (value) => value.length <= 140;
 
