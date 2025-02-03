@@ -37,10 +37,10 @@ const editPhotoModal = () => {
   photoUploadInputElement.addEventListener('change', () => {
     modalElement.classList.remove('hidden');
     document.body.classList.add('modal-open');
+    document.addEventListener('keydown', onEscapeDown);
   });
 
 
-  document.addEventListener('keydown', onEscapeDown);
   closeElement.addEventListener('click', onModalClose);
   validatePhotoEditForm();
   editPhotoScale();

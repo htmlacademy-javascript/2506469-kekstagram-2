@@ -19,14 +19,6 @@ const getRandomUniqueNumbers = (min, max, count) => {
   return numbers;
 };
 
-const getId = () => {
-  let id = 1;
-  function increasesId () {
-    return id++;
-  }
-  return increasesId;
-};
-
 // Клонирование элемента
 const cloneElement = (template) => {
   const fragmentElement = document.createDocumentFragment();
@@ -51,6 +43,20 @@ const closeUserMessage = (button, message) => {
   button.addEventListener('click', () => {
     message.remove();
   });
+
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      message.remove();
+      document.addEventListener('keydown', onEscapeDown);
+    }
+  });
+
+  document.addEventListener('click', (evt) => {
+    if (!evt.target.closest('[class*="inner"]')) {
+      message.remove();
+    }
+  });
 };
 
 // Отображение сообщений для пользователя
@@ -62,7 +68,6 @@ const showMessage = (templateSelector, messageClass, buttonSelector) => {
 
   closeUserMessage(closeButton, message, messageClass);
 };
-
 
 //  Отображение сообщения об успешной отправке данных
 const showSendSuccessMessage = () => {
@@ -85,4 +90,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export {getRandomInt, getId, showSendErrorMessage, showSendSuccessMessage, showLoadErrorMessage, debounce, getRandomUniqueNumbers};
+export { getRandomInt, getRandomUniqueNumbers, showLoadErrorMessage, showSendSuccessMessage, showSendErrorMessage, cloneElement, debounce };
