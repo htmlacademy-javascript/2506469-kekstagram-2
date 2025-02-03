@@ -1,5 +1,5 @@
-import { debounce, getRandomUniqueNumbers } from "./util.js";
-import { createRenderPictures } from "./render-picture.js";
+import { debounce, getRandomUniqueNumbers } from './util.js';
+import { createRenderPictures } from './render-picture.js';
 
 const RANDOM_PHOTOS_COUNT = 10;
 const DEBOUCE_TIME = 500;

@@ -1,4 +1,4 @@
-import { onEscapeDown } from "./edit-photo-modal.js";
+import { onEscapeDown } from './edit-photo-modal.js';
 
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);
@@ -25,7 +25,15 @@ const getId = () => {
     return id++;
   }
   return increasesId;
-}
+};
+
+// Клонирование элемента
+const cloneElement = (template) => {
+  const fragmentElement = document.createDocumentFragment();
+  const newElement = template.cloneNode(true);
+  fragmentElement.appendChild(newElement);
+  document.body.appendChild(fragmentElement);
+};
 
 // Показывает сообщение об ошибке при загрузке данных
 const showLoadErrorMessage = () => {
@@ -38,21 +46,12 @@ const showLoadErrorMessage = () => {
   }, errorShowTime);
 };
 
-
-// Клонирование элемента
-const cloneElement = (template) => {
-  const fragmentElement = document.createDocumentFragment();
-  const newElement = template.cloneNode(true);
-  fragmentElement.appendChild(newElement);
-  document.body.appendChild(fragmentElement);
-};
-
 // Закрытие пользвательских сообщений
 const closeUserMessage = (button, message) => {
   button.addEventListener('click', () => {
     message.remove();
   });
-}
+};
 
 // Отображение сообщений для пользователя
 const showMessage = (templateSelector, messageClass, buttonSelector) => {
