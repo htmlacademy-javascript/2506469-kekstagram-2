@@ -28,10 +28,10 @@ const openModal = (photos) => {
       modalElement.classList.remove('hidden');
       document.body.classList.add('modal-open');
       createFullSizePhoto(foundPhotoElement);
-     }
+    }
 
-     document.addEventListener('keydown', onEscapeDown);
-     closeElement.addEventListener('click', onModalClose);
+    document.addEventListener('keydown', onEscapeDown);
+    closeElement.addEventListener('click', onModalClose);
   });
 };
 
