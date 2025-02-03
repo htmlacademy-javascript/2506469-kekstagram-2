@@ -30,9 +30,9 @@ const openModal = (photos) => {
       createFullSizePhoto(foundPhotoElement);
     }
 
-    document.addEventListener('keydown', onEscapeDown);
     closeElement.addEventListener('click', onModalClose);
+    document.addEventListener('keydown', onEscapeDown);
   });
 };
 
-export {openModal};
+export { openModal };
